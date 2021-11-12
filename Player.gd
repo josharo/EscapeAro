@@ -3,7 +3,7 @@ extends KinematicBody
 const GRAVITY: float = -24.8
 var vel: Vector3
 export var speed: int = 20
-const JUMP_HEIGHT: int = 18
+const JUMP_HEIGHT: int = 108
 
 var camera: Camera
 var rotation_helper: Spatial
