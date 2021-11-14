@@ -16,7 +16,7 @@ func _ready():
 	camera = $RotationHelper/Camera
 	rotation_helper = $RotationHelper
 	
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+#	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _physics_process(delta):
 	process_input(delta)
@@ -64,13 +64,18 @@ func process_movement(delta):
 	vel.z = dir.z * speed
 	vel = move_and_slide(vel, Vector3.UP, false, 4, MAX_SLOPE_ANGLE)
 	
-#	print(vel)
-
 func _input(event):
+#	if event is InputEventMouseButton:
+#		print("_input")
+	
 	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		rotation_helper.rotate_x(deg2rad(event.relative.y * MOUSE_SENSITIVITY))
 		self.rotate_y(deg2rad(event.relative.x * MOUSE_SENSITIVITY * -1))
-
+		
 		var camera_rot = rotation_helper.rotation_degrees
 		camera_rot.x = clamp(camera_rot.x, -70, 70)
 		rotation_helper.rotation_degrees = camera_rot
+		
+#func _input_event(camera, event, position, normal, shape_idx):
+#	if event is InputEventMouseButton:
+#		print("_input_event", camera)
