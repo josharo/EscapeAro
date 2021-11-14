@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://RigidBodyObject.tscn" type="PackedScene" id=2]
-[ext_resource path="res://StaticBodyObject.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Items/PuzzleSample.tscn" type="PackedScene" id=2]
 [ext_resource path="res://TestingArea.gd" type="Script" id=4]
 
 [sub_resource type="PlaneMesh" id=1]
@@ -79,8 +78,8 @@ omni_range = 60.0
 [node name="Player" parent="Room" instance=ExtResource( 1 )]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 2.02257e-13, 0.1015, 2.31354e-06 )
 
-[node name="RigidBodyObject" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.18733, 11.7392, -22.5869 )
+[node name="PuzzleSample" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.374, -24.6015 )
 
-[node name="StaticBodyObject" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.11953, 5.77717, -9.70656 )
+[node name="PuzzleSample2" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.32067, -34.6088 )
