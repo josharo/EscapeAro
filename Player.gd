@@ -64,6 +64,8 @@ func process_movement(delta):
 	vel.z = dir.z * speed
 	vel = move_and_slide(vel, Vector3.UP, false, 4, MAX_SLOPE_ANGLE)
 	
+const RAY_LENGTH: int = 100
+	
 func _input(event):
 #	if event is InputEventMouseButton:
 #		print("_input")
@@ -75,7 +77,26 @@ func _input(event):
 		var camera_rot = rotation_helper.rotation_degrees
 		camera_rot.x = clamp(camera_rot.x, -70, 70)
 		rotation_helper.rotation_degrees = camera_rot
+
+
+	# --------------------------------------------
+	# 3D ray casting from screen for object picking
+	if event is InputEventMouseButton and event.pressed and event.button_index == 1:
+		var from = camera.project_ray_origin(event.position)
+		var to = from + camera.project_ray_normal(event.position) * RAY_LENGTH
 		
-#func _input_event(camera, event, position, normal, shape_idx):
-#	if event is InputEventMouseButton:
-#		print("_input_event", camera)
+		var space_state = get_world().get_direct_space_state()
+		var results =  space_state.intersect_ray(from, to)
+		
+		if results.size() > 0:
+			for item in results:
+				print(item, " : ", results[item])
+			print("\n\n")
+#			print(results.size() , " : ", results["position"])
+#			print(results["collider"], " : ")
+#			for item in results:
+#				print(item)
+##			return results["position"]
+		
+#		_object_picker_ray.transform.origin = from
+#		_object_picker_ray.cast_to = to

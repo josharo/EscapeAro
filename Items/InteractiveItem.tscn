@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Items/InteractiveItem.gd" type="Script" id=1]
 
-[node name="InteractiveItem" type="Area"]
+[node name="InteractiveItem" type="StaticBody"]
 script = ExtResource( 1 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
@@ -10,3 +10,10 @@ script = ExtResource( 1 )
 [node name="CollisionShape" type="CollisionShape" parent="."]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="DetectedArea" type="Area" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="DetectedArea"]
+
+[connection signal="body_entered" from="DetectedArea" to="." method="_on_DetectedArea_body_entered"]
+[connection signal="body_exited" from="DetectedArea" to="." method="_on_DetectedArea_body_exited"]

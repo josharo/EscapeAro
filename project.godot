@@ -14,6 +14,13 @@ config/name="EscapeAro"
 run/main_scene="res://TestingArea.tscn"
 config/icon="res://icon.png"
 
+[display]
+
+window/size/width=1920
+window/size/height=1080
+window/size/test_width=960
+window/size/test_height=540
+
 [input]
 
 movement_forward={
