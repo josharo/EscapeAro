@@ -1,4 +1,5 @@
 extends StaticBody
+class_name InteractiveItem
 
 var is_detected: bool = false
 # --------------------------
@@ -30,7 +31,6 @@ var is_detected: bool = false
 #
 #func play_animation():
 #	$AnimatedSprite.play("default") # default animation
-
 
 func _on_DetectedArea_body_entered(body):
 	if body.name == 'Player':

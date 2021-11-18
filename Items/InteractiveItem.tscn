@@ -15,5 +15,7 @@ script = ExtResource( 1 )
 
 [node name="CollisionShape" type="CollisionShape" parent="DetectedArea"]
 
+[node name="InteractPosition" type="Position3D" parent="."]
+
 [connection signal="body_entered" from="DetectedArea" to="." method="_on_DetectedArea_body_entered"]
 [connection signal="body_exited" from="DetectedArea" to="." method="_on_DetectedArea_body_exited"]

@@ -12,6 +12,9 @@ var dir: Vector3
 const MAX_SLOPE_ANGLE = deg2rad(40)
 const MOUSE_SENSITIVITY = 0.05
 
+var crateScene: PackedScene = load("res://Items/Crate.tscn")
+export(PackedScene) var CrateScene: PackedScene # load or export ???
+
 func _ready():
 	camera = $RotationHelper/Camera
 	rotation_helper = $RotationHelper
@@ -84,14 +87,19 @@ func _input(event):
 	if event is InputEventMouseButton and event.pressed and event.button_index == 1:
 		var from = camera.project_ray_origin(event.position)
 		var to = from + camera.project_ray_normal(event.position) * RAY_LENGTH
-		
+
 		var space_state = get_world().get_direct_space_state()
 		var results =  space_state.intersect_ray(from, to)
 		
-		if results.size() > 0:
-			for item in results:
-				print(item, " : ", results[item])
-			print("\n\n")
+		var crate = crateScene.instance()
+		get_parent().add_child(crate) # or perhaps signal instead ???
+
+#		if results.size() > 0:
+#			for item in results:
+#				print(item, " : ", results[item])
+#			print("\n\n")
+
+
 #			print(results.size() , " : ", results["position"])
 #			print(results["collider"], " : ")
 #			for item in results:

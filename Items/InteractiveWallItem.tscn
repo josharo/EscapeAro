@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Items/InteractiveItem.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Items/InteractiveWallItem.gd" type="Script" id=2]
+
+[sub_resource type="SpatialMaterial" id=2]
+albedo_color = Color( 0.6, 0.690196, 0.505882, 1 )
+metallic = 0.8
+
+[sub_resource type="CubeMesh" id=1]
+material = SubResource( 2 )
+size = Vector3( 10, 10, 1 )
+
+[node name="InteractiveWallItem" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[node name="MeshInstance" parent="." index="0"]
+mesh = SubResource( 1 )
+material/0 = null
