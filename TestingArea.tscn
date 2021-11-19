@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Items/InteractiveWallItem.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Items/Crate.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Items/Door.tscn" type="PackedScene" id=3]
 [ext_resource path="res://TestingArea.gd" type="Script" id=4]
+[ext_resource path="res://Wall.tscn" type="PackedScene" id=5]
 
 [sub_resource type="PlaneMesh" id=1]
 size = Vector2( 80, 80 )
@@ -44,16 +45,7 @@ material/0 = null
 [node name="CollisionShape" type="CollisionShape" parent="Room/Ceiling"]
 shape = SubResource( 2 )
 
-[node name="Wall1" type="StaticBody" parent="Room"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 40, -40 )
-
-[node name="MeshInstance" type="MeshInstance" parent="Room/Wall1"]
-mesh = SubResource( 1 )
-skeleton = NodePath("../../Floor/MeshInstance")
-material/0 = null
-
-[node name="CollisionShape" type="CollisionShape" parent="Room/Wall1"]
-shape = SubResource( 2 )
+[node name="Wall1" parent="Room" instance=ExtResource( 5 )]
 
 [node name="Wall2" type="StaticBody" parent="Room"]
 transform = Transform( -4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, -40, 40, 0 )
@@ -86,14 +78,12 @@ shadow_enabled = true
 shadow_bias = 0.4
 omni_range = 60.0
 
-[node name="Player" parent="Room" instance=ExtResource( 1 )]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
-
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.999985, -0.0054454, 0, 0.0054454, 0.999985, -7.65471, 18.384, 7.37375 )
+transform = Transform( 1, 0, 0, 0, 0.999985, -0.0054454, 0, 0.0054454, 0.999985, -7.65471, 18.384, 19.3827 )
+current = true
 
-[node name="InteractiveWallItem" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.7717, -38.784 )
+[node name="Player" parent="." instance=ExtResource( 1 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 4 )
@@ -102,5 +92,8 @@ environment = SubResource( 4 )
 transform = Transform( 1, 0, 0, 0, 0.762228, 0.647309, 0, -0.647309, 0.762228, 0, 164.076, 37.1399 )
 light_energy = 0.0
 
-[node name="Crate" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.51924, -11.8883 )
+[node name="Door" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.53139, -16.9275 )
+
+[node name="InteractiveWallItem" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.0268, -37.8425 )

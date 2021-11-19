@@ -9,6 +9,8 @@ var camera: Camera
 var rotation_helper: Spatial
 var dir: Vector3
 
+var detector_ray: RayCast
+
 const MAX_SLOPE_ANGLE = deg2rad(40)
 const MOUSE_SENSITIVITY = 0.05
 
@@ -18,6 +20,7 @@ export(PackedScene) var CrateScene: PackedScene # load or export ???
 func _ready():
 	camera = $RotationHelper/Camera
 	rotation_helper = $RotationHelper
+	detector_ray = $RotationHelper/Camera/RayCast
 	
 #	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
@@ -94,17 +97,15 @@ func _input(event):
 		var crate = crateScene.instance()
 		get_parent().add_child(crate) # or perhaps signal instead ???
 
-#		if results.size() > 0:
-#			for item in results:
-#				print(item, " : ", results[item])
-#			print("\n\n")
+		if results.size() > 0:
+			for item in results:
+				print(item, " : ", results[item])
+			print("\n\n")
 
+func _on_ItemDetectArea_body_entered(body):
+	if body.has_method("show_interacte_button"):
+		body.show_interacte_button()
 
-#			print(results.size() , " : ", results["position"])
-#			print(results["collider"], " : ")
-#			for item in results:
-#				print(item)
-##			return results["position"]
-		
-#		_object_picker_ray.transform.origin = from
-#		_object_picker_ray.cast_to = to
+func _on_ItemDetectArea_body_exited(body):
+	if body.has_method("hide_interacte_button"):
+		body.hide_interacte_button()
