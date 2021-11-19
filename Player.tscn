@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 
@@ -19,6 +19,9 @@ size = Vector3( 2, 2, 20 )
 [sub_resource type="ConvexPolygonShape" id=9]
 points = PoolVector3Array( 1, 1, 10, 1, -1, 10, 1, 1, -10, -1, 1, 10, -1, -1, 10, 1, -1, -10, -1, 1, -10, -1, -1, -10 )
 
+[sub_resource type="RayShape" id=10]
+length = 20.0
+
 [node name="Player" type="KinematicBody"]
 script = ExtResource( 1 )
 
@@ -36,14 +39,18 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.1575, 0 )
 [node name="Model" type="Spatial" parent="RotationHelper"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0639973, 2.02594 )
 
-[node name="MeshInstance" type="MeshInstance" parent="RotationHelper/Model"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1 )
-mesh = SubResource( 3 )
-material/0 = null
+[node name="Position3D" type="Position3D" parent="RotationHelper"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 14.7442 )
 
 [node name="Camera" type="Camera" parent="RotationHelper"]
 transform = Transform( -1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, 0 )
 current = true
+
+[node name="Crosshair" type="MeshInstance" parent="RotationHelper/Camera"]
+transform = Transform( -1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, -1 )
+mesh = SubResource( 3 )
+skeleton = NodePath("../../Model")
+material/0 = null
 
 [node name="ItemDetectArea" type="Area" parent="RotationHelper/Camera"]
 
@@ -55,7 +62,25 @@ material/0 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="RotationHelper/Camera/ItemDetectArea"]
 transform = Transform( 0.564434, 0, 0, 0, 0.541701, 0, 0, 0, 0.963542, 0, 0, -10.3482 )
+visible = false
 shape = SubResource( 9 )
+disabled = true
+
+[node name="CollisionShape2" type="CollisionShape" parent="RotationHelper/Camera/ItemDetectArea"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, -20 )
+shape = SubResource( 10 )
+
+[node name="CollisionShape3" type="CollisionShape" parent="RotationHelper/Camera/ItemDetectArea"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.5, -20 )
+shape = SubResource( 10 )
+
+[node name="CollisionShape4" type="CollisionShape" parent="RotationHelper/Camera/ItemDetectArea"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.5, -20 )
+shape = SubResource( 10 )
+
+[node name="CollisionShape5" type="CollisionShape" parent="RotationHelper/Camera/ItemDetectArea"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, -0.5, -20 )
+shape = SubResource( 10 )
 
 [node name="FlashLight" type="SpotLight" parent="RotationHelper"]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 6.5, -0.05 )
@@ -64,6 +89,7 @@ light_color = Color( 1, 0.913725, 0.768627, 1 )
 light_energy = 0.8
 
 [node name="HUD" type="Control" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {

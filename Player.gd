@@ -20,7 +20,7 @@ export(PackedScene) var CrateScene: PackedScene # load or export ???
 func _ready():
 	camera = $RotationHelper/Camera
 	rotation_helper = $RotationHelper
-	detector_ray = $RotationHelper/Camera/RayCast
+#	detector_ray = $RotationHelper/Camera/RayCast
 	
 #	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
@@ -77,35 +77,63 @@ func _input(event):
 #		print("_input")
 	
 	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+#	if event is InputEventMouseMotion:
 		rotation_helper.rotate_x(deg2rad(event.relative.y * MOUSE_SENSITIVITY))
 		self.rotate_y(deg2rad(event.relative.x * MOUSE_SENSITIVITY * -1))
-		
+
 		var camera_rot = rotation_helper.rotation_degrees
 		camera_rot.x = clamp(camera_rot.x, -70, 70)
 		rotation_helper.rotation_degrees = camera_rot
-
 
 	# --------------------------------------------
 	# 3D ray casting from screen for object picking
 	if event is InputEventMouseButton and event.pressed and event.button_index == 1:
 		var from = camera.project_ray_origin(event.position)
 		var to = from + camera.project_ray_normal(event.position) * RAY_LENGTH
-
 		var space_state = get_world().get_direct_space_state()
 		var results =  space_state.intersect_ray(from, to)
 		
-		var crate = crateScene.instance()
-		get_parent().add_child(crate) # or perhaps signal instead ???
+		print(from)
+		print(to)
+		print()
+	
+#		var crate = crateScene.instance()
+#
+#		crate.global_transform = $RotationHelper/Position3D.global_transform
+#		print($RotationHelper/Position3D.transform.origin)
+#
+#		get_parent().add_child(crate) # or perhaps signal instead ???
+
+#		if results.size() > 0:
+#			for item in results:
+#				print(item, " : ", results[item])
+#			print("collider: ", results["collider"])
 
 		if results.size() > 0:
-			for item in results:
-				print(item, " : ", results[item])
-			print("\n\n")
+			print("collider: ", results["collider"])
+
+	# --------------------------------------------
+	# click on Crosshair
+	if event is InputEventMouseButton and event.pressed and event.button_index == 2:
+		var from = camera.project_ray_origin(event.position)
+		var cross_pos: Vector2 = camera.unproject_position($RotationHelper/Camera/Crosshair.global_transform.origin)
+#		print("cam pos: ", cross_pos)
+		var to = from + camera.project_ray_normal(cross_pos) * RAY_LENGTH
+		var space_state = get_world().get_direct_space_state()
+		var results =  space_state.intersect_ray(from, to)
+		
+		print(from)
+		print(to)
+		print()
+		
+		if results.size() > 0:
+			print("collider: ", results["collider"])
+		
 
 func _on_ItemDetectArea_body_entered(body):
-	if body.has_method("show_interacte_button"):
-		body.show_interacte_button()
+	if body.has_method("show_interact_button"):
+		body.show_interact_button()
 
 func _on_ItemDetectArea_body_exited(body):
-	if body.has_method("hide_interacte_button"):
-		body.hide_interacte_button()
+	if body.has_method("hide_interact_button"):
+		body.hide_interact_button()

@@ -82,9 +82,6 @@ omni_range = 60.0
 transform = Transform( 1, 0, 0, 0, 0.999985, -0.0054454, 0, 0.0054454, 0.999985, -7.65471, 18.384, 19.3827 )
 current = true
 
-[node name="Player" parent="." instance=ExtResource( 1 )]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 4 )
 
@@ -97,3 +94,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.53139, -16.9275 )
 
 [node name="InteractiveWallItem" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.0268, -37.8425 )
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 12.0043, 0 )

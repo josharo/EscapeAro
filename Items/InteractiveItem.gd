@@ -48,14 +48,15 @@ var is_detected: bool = false
 # --------------------------------------------
 # show/hide the interacte button
 # used by Player
-func show_interacte_button():
+func show_interact_button():
 	$InteractButton.set_visible(true)
-func hide_interacte_button():
+func hide_interact_button():
 	$InteractButton.set_visible(false)
 
 
 
 func _on_ActivateButton_input_event(camera, event, position, normal, shape_idx):
+#	print("active zzzzz")
 	if event is InputEventMouseButton and event.pressed and event.button_index == 1:
 #		var from = camera.project_ray_origin(event.position)
 #		var to = from + camera.project_ray_normal(event.position) * RAY_LENGTH
@@ -71,3 +72,12 @@ func _on_ActivateButton_input_event(camera, event, position, normal, shape_idx):
 #				print(item, " : ", results[item])
 #			print("\n\n")
 		print("Let's do this....")
+
+
+
+func _on_InteractButton_mouse_entered():
+	print(self, " entered")
+
+
+func _on_InteractButton_mouse_exited():
+	print(self, " EXITED")
