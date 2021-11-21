@@ -92,16 +92,17 @@ func _input(event):
 		var space_state = get_world().get_direct_space_state()
 		var results =  space_state.intersect_ray(from, to)
 		
-		print(from)
-		print(to)
-		print()
+#		print(from)
+#		print(to)
+#		print()
 	
-#		var crate = crateScene.instance()
-#
-#		crate.global_transform = $RotationHelper/Position3D.global_transform
+		var crate = crateScene.instance()
+
+		crate.global_transform = $RotationHelper/Position3D.global_transform # on Crosshair
+#		crate.global_transform = from + camera.project_ray_normal(event.position) * 50 # on mouse click
 #		print($RotationHelper/Position3D.transform.origin)
-#
-#		get_parent().add_child(crate) # or perhaps signal instead ???
+
+		get_parent().add_child(crate) # or perhaps signal instead ???
 
 #		if results.size() > 0:
 #			for item in results:
@@ -109,7 +110,14 @@ func _input(event):
 #			print("collider: ", results["collider"])
 
 		if results.size() > 0:
-			print("collider: ", results["collider"])
+			var col = results["collider"]
+			if col.name == "InteractiveButton":
+				print($RotationHelper/Position3D.transform.origin)
+#			print(col.get_class()) # object type
+		
+		
+		
+		
 
 	# --------------------------------------------
 	# click on Crosshair
@@ -121,9 +129,9 @@ func _input(event):
 		var space_state = get_world().get_direct_space_state()
 		var results =  space_state.intersect_ray(from, to)
 		
-		print(from)
-		print(to)
-		print()
+#		print(from)
+#		print(to)
+#		print()
 		
 		if results.size() > 0:
 			print("collider: ", results["collider"])
