@@ -70,7 +70,7 @@ func process_movement(delta):
 	vel.z = dir.z * speed
 	vel = move_and_slide(vel, Vector3.UP, false, 4, MAX_SLOPE_ANGLE)
 	
-const RAY_LENGTH: int = 100
+const RAY_LENGTH: int = 1000
 	
 func _input(event):
 #	if event is InputEventMouseButton:
@@ -109,11 +109,24 @@ func _input(event):
 #				print(item, " : ", results[item])
 #			print("collider: ", results["collider"])
 
-		if results.size() > 0:
+		
+		if results.size() > 0: # 6 indexes. collider, collider_id, normal, position, rid, shape
 			var col = results["collider"]
-			if col.name == "InteractiveButton":
-				print($RotationHelper/Position3D.transform.origin)
-#			print(col.get_class()) # object type
+			print("clicked on: ", col)
+			if col.name == "InteractButton":
+				var owner = col.get_owner() # top parent of this collider, e.g. InteractiveItem
+				
+				look_at(owner.global_transform.origin * Vector3(-1, 1, -1), Vector3.UP)
+				
+				if owner.is_activated: # activated if player is close enough
+					print("Move Player to : ", $RotationHelper/Position3D.transform.origin)
+					print("Move Player to : ", $RotationHelper/Position3D.global_transform.origin)
+					self.global_transform.origin.x = owner.get_node("PlayerInteractPosition").global_transform.origin.x
+					self.global_transform.origin.z = owner.get_node("PlayerInteractPosition").global_transform.origin.z
+#					look_at(owner.global_transform.origin, Vector3.UP)
+#					print(owner.global_transform.origin)
+					
+					
 		
 		
 		
@@ -138,9 +151,9 @@ func _input(event):
 		
 
 func _on_ItemDetectArea_body_entered(body):
-	if body.has_method("show_interact_button"):
-		body.show_interact_button()
+	if body.has_method("activate_interaction"):
+		body.activate_interaction()
 
 func _on_ItemDetectArea_body_exited(body):
-	if body.has_method("hide_interact_button"):
-		body.hide_interact_button()
+	if body.has_method("deactivate_interaction"):
+		body.deactivate_interaction()

@@ -1,15 +1,13 @@
 extends StaticBody
 class_name InteractiveItem
 
-var is_detected: bool = false
+var is_activated: bool = false
 # --------------------------
 # Touch/Click object picking with CollisionObject method
 # It picks everything visible on screen regardless the distance
 #func _input_event(camera, event, position, normal, shape_idx):
 #	if event is InputEventMouseButton and event.is_pressed() and event.button_index == 1:
 #		print(self.name, event.button_index)
-
-
 
 
 #var in_animation:bool = false
@@ -48,35 +46,38 @@ var is_detected: bool = false
 # --------------------------------------------
 # show/hide the interacte button
 # used by Player
-func show_interact_button():
+func activate_interaction():
 	$InteractButton.set_visible(true)
-func hide_interact_button():
+	is_activated = true
+func deactivate_interaction():
 	$InteractButton.set_visible(false)
+	is_activated = false
+	is_activated = false
 
 
 
-func _on_ActivateButton_input_event(camera, event, position, normal, shape_idx):
-	if event is InputEventMouseButton and event.pressed and event.button_index == 1:
-#		var from = camera.project_ray_origin(event.position)
-#		var to = from + camera.project_ray_normal(event.position) * RAY_LENGTH
+#func _on_ActivateButton_input_event(camera, event, position, normal, shape_idx):
+#	if event is InputEventMouseButton and event.pressed and event.button_index == 1:
+##		var from = camera.project_ray_origin(event.position)
+##		var to = from + camera.project_ray_normal(event.position) * RAY_LENGTH
+##
+##		var space_state = get_world().get_direct_space_state()
+##		var results =  space_state.intersect_ray(from, to)
+##
+##		var crate = crateScene.instance()
+##		get_parent().add_child(crate) # or perhaps signal instead ???
+##
+##		if results.size() > 0:
+##			for item in results:
+##				print(item, " : ", results[item])
+##			print("\n\n")
+#		print("Let's do this....")
+
+
+
+#func _on_InteractButton_mouse_entered():
+#	print(self, " entered")
 #
-#		var space_state = get_world().get_direct_space_state()
-#		var results =  space_state.intersect_ray(from, to)
 #
-#		var crate = crateScene.instance()
-#		get_parent().add_child(crate) # or perhaps signal instead ???
-#
-#		if results.size() > 0:
-#			for item in results:
-#				print(item, " : ", results[item])
-#			print("\n\n")
-		print("Let's do this....")
-
-
-
-func _on_InteractButton_mouse_entered():
-	print(self, " entered")
-
-
-func _on_InteractButton_mouse_exited():
-	print(self, " EXITED")
+#func _on_InteractButton_mouse_exited():
+#	print(self, " EXITED")

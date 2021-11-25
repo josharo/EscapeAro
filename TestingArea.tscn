@@ -79,7 +79,7 @@ shadow_bias = 0.4
 omni_range = 60.0
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.999985, -0.0054454, 0, 0.0054454, 0.999985, -7.65471, 18.384, 19.3827 )
+transform = Transform( 0.0426778, -0.00544044, -0.999074, 0, 0.999985, -0.0054454, 0.999089, 0.000232398, 0.0426772, -45.5222, 18.384, -19.2072 )
 current = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -93,7 +93,7 @@ light_energy = 0.0
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.53139, -16.9275 )
 
 [node name="InteractiveWallItem" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.0268, -37.8425 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.0268, -39.3788 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 12.0043, 0 )
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -34.851, 0, 36.27 )
