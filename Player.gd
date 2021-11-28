@@ -37,10 +37,10 @@ func process_input(delta):
 		input_movement_vector.y += 1
 	if Input.is_action_pressed("movement_backward"):
 		input_movement_vector.y -= 1
-	if Input.is_action_pressed("movement_left"):
-		input_movement_vector.x -= 1
 	if Input.is_action_pressed("movement_right"):
 		input_movement_vector.x += 1
+	if Input.is_action_pressed("movement_left"):
+		input_movement_vector.x -= 1
 	
 	input_movement_vector = input_movement_vector.normalized()
 	dir += -cam_xform.basis.z * input_movement_vector.y
@@ -77,9 +77,10 @@ func _input(event):
 #		print("_input")
 	
 	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
-		rotation_helper.rotate_x(deg2rad(event.relative.y * MOUSE_SENSITIVITY))
+		# event.relative.x: right(+), left(-) & event.relative.y: up(-), down(+)
+		rotation_helper.rotate_x(deg2rad(event.relative.y * MOUSE_SENSITIVITY * -1))
 		self.rotate_y(deg2rad(event.relative.x * MOUSE_SENSITIVITY * -1))
-
+		
 		var camera_rot = rotation_helper.rotation_degrees
 		camera_rot.x = clamp(camera_rot.x, -70, 70)
 		rotation_helper.rotation_degrees = camera_rot
@@ -92,10 +93,6 @@ func _input(event):
 		var space_state = get_world().get_direct_space_state()
 		var results =  space_state.intersect_ray(from, to)
 		
-#		print(from)
-#		print(to)
-#		print()
-	
 		var crate = crateScene.instance()
 
 		crate.global_transform = $RotationHelper/Position3D.global_transform # on Crosshair
