@@ -59,6 +59,14 @@ func process_input(delta):
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		else:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
+	# ------------------------------
+	# TEMP: camera switch
+	if Input.is_action_just_pressed("fire"):
+		if camera.current:
+			camera.current = false
+		else:
+			camera.current = true
 
 func process_movement(delta):
 	dir.y = 0
@@ -78,7 +86,7 @@ func _input(event):
 	
 	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		# event.relative.x: right(+), left(-) & event.relative.y: up(-), down(+)
-		rotation_helper.rotate_x(deg2rad(event.relative.y * MOUSE_SENSITIVITY * -1))
+		rotation_helper.rotate_x(deg2rad(event.relative.y * MOUSE_SENSITIVITY))
 		self.rotate_y(deg2rad(event.relative.x * MOUSE_SENSITIVITY * -1))
 		
 		var camera_rot = rotation_helper.rotation_degrees
