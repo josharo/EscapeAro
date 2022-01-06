@@ -45,6 +45,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 14.744 )
 
 [node name="Camera" type="Camera" parent="RotationHelper"]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
+current = true
 
 [node name="Crosshair" type="MeshInstance" parent="RotationHelper/Camera"]
 transform = Transform( -1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, -1 )

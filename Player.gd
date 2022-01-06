@@ -63,10 +63,22 @@ func process_input(delta):
 	# ------------------------------
 	# TEMP: camera switch
 	if Input.is_action_just_pressed("fire"):
-		if camera.current:
-			camera.current = false
-		else:
-			camera.current = true
+		camera.current = not camera.current
+	
+	# ---------------------------------
+	# TEMP: rotate
+	if Input.is_action_just_pressed("reload"):
+		print(transform.basis, " : ", transform.origin)
+#		transform.basis = Basis(Vector3(0, 1, 0), deg2rad(45)) * transform.basis
+#		transform.basis = transform.basis.rotated(Vector3(0, 1, 0), PI/4)
+#		rotate(Vector3(0, 1, 0), PI)
+		rotate_y(deg2rad(10))
+#		rotate_object_local(Vector3(0, 1, 0), PI)
+#		rotate_y(PI)
+		print(transform.basis, " : ", transform.origin)
+		print("\n\n")
+#		print(self.rotation_degrees)
+#		self.rotation_degrees = Vector3(0, 1, 0)
 
 func process_movement(delta):
 	dir.y = 0
@@ -120,23 +132,18 @@ func _input(event):
 			print("clicked on: ", col)
 			if col.name == "InteractButton":
 				var owner = col.get_owner() # top parent of this collider, e.g. InteractiveItem
+				look_at_object(owner.global_transform) # * Vector3(-1, 1, -1))
 				
-				look_at(owner.global_transform.origin * Vector3(-1, 1, -1), Vector3.UP)
 				
-				if owner.is_activated: # activated if player is close enough
-					print("Move Player to : ", $RotationHelper/Position3D.transform.origin)
-					print("Move Player to : ", $RotationHelper/Position3D.global_transform.origin)
-					self.global_transform.origin.x = owner.get_node("PlayerInteractPosition").global_transform.origin.x
-					self.global_transform.origin.z = owner.get_node("PlayerInteractPosition").global_transform.origin.z
+#				if owner.is_activated: # activated if player is close enough
+#					print("Move Player to : ", $RotationHelper/Position3D.transform.origin)
+#					print("Move Player to : ", $RotationHelper/Position3D.global_transform.origin)
+#					self.global_transform.origin.x = owner.get_node("PlayerInteractPosition").global_transform.origin.x
+#					self.global_transform.origin.z = owner.get_node("PlayerInteractPosition").global_transform.origin.z
+
 #					look_at(owner.global_transform.origin, Vector3.UP)
 #					print(owner.global_transform.origin)
 					
-					
-		
-		
-		
-		
-
 	# --------------------------------------------
 	# click on Crosshair
 	if event is InputEventMouseButton and event.pressed and event.button_index == 2:
@@ -154,6 +161,14 @@ func _input(event):
 		if results.size() > 0:
 			print("collider: ", results["collider"])
 		
+
+# -------------------------
+# private function
+func look_at_object(target):
+	print("look target: ", target, " :: Player: ", self.global_transform)
+#	Transform
+#	rotation_helper.rotate_x(deg2rad(event.relative.y * MOUSE_SENSITIVITY))
+#	self.rotate_y(deg2rad(event.relative.x * MOUSE_SENSITIVITY * -1))
 
 func _on_ItemDetectArea_body_entered(body):
 	if body.has_method("activate_interaction"):
